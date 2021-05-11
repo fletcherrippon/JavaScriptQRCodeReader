@@ -5,11 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>messaging</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin:0;
+      }
+      .wrapper {
+        display: flex;
+        padding: 0 4rem;
+      }
+      #canvas {
+        position: absolute;
+      }
+    </style>
   </head>
   <body>
-    <div id="messages"></div>
-    <textarea id="message-box">d</textarea>
-    <button id="submit-btn">Submit</button>
-    <script src="./main.js"></script>
+    <template id="scaned-item">
+      <style>
+        .wrapper {
+          border: none;
+          border-radius: 1rem;
+          padding: 1rem;
+          background-color: darkgray;
+        }
+        .wrapper span {
+          font-family: Arial, Helvetica, sans-serif;
+          color: white;
+          display: block;
+        }
+      </style>
+      <div class="wrapper">
+        <span>value: <slot name="raw"></slot></span>
+        <span>format: <slot name="format"></slot></span>
+      </div>
+    </template>
+
+    <div class="wrapper">
+      <h1>QR Code Scanner</h1>
+      <div style="position:relative">
+        <canvas id="canvas" width="640" height="480"></canvas>
+        <video id="video" width="640" height="480" autoplay></video>
+      </div>
+      <div id="scaned"></div>
+    </div>
+    <script src="./main.js" async></script>
   </body>
 </html>
