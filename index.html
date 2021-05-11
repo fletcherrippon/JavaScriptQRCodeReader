@@ -9,14 +9,25 @@
       html,
       body {
         padding: 0;
-        margin:0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
       }
       .wrapper {
-        display: flex;
         padding: 0 4rem;
       }
       #canvas {
         position: absolute;
+      }
+      #scanned {
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+      }
+      #video-wrapper {
+        height: 480px;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
       }
     </style>
   </head>
@@ -24,10 +35,13 @@
     <template id="scaned-item">
       <style>
         .wrapper {
+          --gradient-start: #c471ed;
+          --gradient-end: #f7797d;
           border: none;
           border-radius: 1rem;
           padding: 1rem;
-          background-color: darkgray;
+          background: linear-gradient(var(--gradient-start), var(--gradient-end));
+          box-shadow: 0 3px -3px 10px #000;
         }
         .wrapper span {
           font-family: Arial, Helvetica, sans-serif;
@@ -36,18 +50,23 @@
         }
       </style>
       <div class="wrapper">
-        <span>value: <slot name="raw"></slot></span>
-        <span>format: <slot name="format"></slot></span>
+        <span>Value: <slot name="raw"></slot></span>
+        <span>Format: <slot name="format"></slot></span>
       </div>
     </template>
 
     <div class="wrapper">
       <h1>QR Code Scanner</h1>
-      <div style="position:relative">
-        <canvas id="canvas" width="640" height="480"></canvas>
-        <video id="video" width="640" height="480" autoplay></video>
+      <div style="display: flex; gap: 1rem">
+        <div id="video-wrapper">
+          <canvas id="canvas" width="640" height="480"></canvas>
+          <video id="video" width="640" height="480" autoplay></video>
+        </div>
+        <div>
+          <h1>Recently Scanned</h1>
+          <div id="scanned"></div>
+        </div>
       </div>
-      <div id="scaned"></div>
     </div>
     <script src="./main.js" async></script>
   </body>
