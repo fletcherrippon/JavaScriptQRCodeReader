@@ -1,7 +1,7 @@
 let codes = [];
 const seen = new Set();
 // Create new barcode detector
-const barcodeDetector = new BarcodeDetector({formats: ['qr_code']});
+const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
 
 // Define custom element
 customElements.define('scaned-item', class extends HTMLElement {
@@ -128,6 +128,7 @@ const detectCode = () => {
     if (codes.length === 0) return drawCodePath({});
     
     for (const barcode of codes)  {
+      console.log(barcode)
       // Draw outline
       drawCodePath(barcode);
       
@@ -138,11 +139,12 @@ const detectCode = () => {
       // then push to the codes proxy
       window.barcodeVal = barcode.rawValue;
       codesProxy.push(barcode);
+
     }
   }).catch(err => {
     console.error(err);
   })
 }
 
-// Run detect code function ever 100 milliseconds
-setInterval(() => detectCode(), 100);
+// Run detect code function every 100 milliseconds
+setInterval(detectCode, 100);
